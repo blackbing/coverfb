@@ -33,7 +33,7 @@ $(window).load(->
   )
 
   $('body').on('mousemove', (event)->
-    $target = $(event.target)
+    $target = $('#coverImage')
     isMouseDown = $target.data('down')
     if(isMouseDown)
       currentX = event.clientX
@@ -51,7 +51,7 @@ $(window).load(->
 
 
   ).on('mouseup', (event)->
-    $target = $(event.target)
+    $target = $('#coverImage')
     console.log('mosueup')
     $target
     .removeData('down')
