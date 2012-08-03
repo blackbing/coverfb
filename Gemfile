@@ -18,6 +18,8 @@ group :assets do
   # gem 'therubyracer', :platforms => :ruby
 
   gem 'uglifier', '>= 1.0.3'
+  gem 'compass', '0.12.alpha.4'  # 0.12.rc.0 will cause "File to import not found or unreadable: compass/css3"
+  gem 'jquery-ui-rails'
 end
 
 gem 'jquery-rails'
