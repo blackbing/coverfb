@@ -4,8 +4,7 @@
 #
 $(window).load(->
 
-  $('#main').height($(document).height())
-  $('#coverImage').on('mousewheel DOMMouseScroll', (event)->
+  $('#cover_image').on('mousewheel DOMMouseScroll', (event)->
     originalEvent = event.originalEvent
     wheelDelta = originalEvent.wheelDelta
     wheelDeltaX = originalEvent.wheelDeltaX
@@ -33,7 +32,7 @@ $(window).load(->
   )
 
   $('body').on('mousemove', (event)->
-    $target = $('#coverImage')
+    $target = $('#cover_image')
     isMouseDown = $target.data('down')
     if(isMouseDown)
       currentX = event.clientX
@@ -50,8 +49,9 @@ $(window).load(->
 
 
 
+      return false
   ).on('mouseup', (event)->
-    $target = $('#coverImage')
+    $target = $('#cover_image')
     console.log('mosueup')
     $target
     .removeData('down')
@@ -65,5 +65,24 @@ $(window).load(->
   $('#background-image').draggable()
 
 
+
+  mainWidth = 1263
+  $(window).resize(->
+    winW = $(window).width()
+    winH = $(window).height()
+    sideW = (winW - mainWidth)/2
+    $('.leftSide').add('.rightSide').width(sideW)
+
+    if not $('#profile_pic_education').data('o_left')
+      o_left = parseInt($('#profile_pic_education').css('left'), 10)
+      $('#profile_pic_education').data('o_left', o_left)
+    else
+      o_left = $('#profile_pic_education').data('o_left')
+
+    $('#profile_pic_education').css('left', o_left+sideW)
+
+    $('#main').height($(document).height())
+
+  ).trigger('resize')
 )
 
