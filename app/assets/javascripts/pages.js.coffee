@@ -111,6 +111,7 @@ require([
 
 
   $('#cropBtnProfile').on('click', ()->
+    $('#camera')[0].play()
     coverSize =
       w: 180
       h: 180
@@ -123,6 +124,7 @@ require([
   )
 
   $('#cropBtnCover').on('click', ()->
+    $('#camera')[0].play()
     coverSize =
       w: 851
       h: 315
@@ -148,8 +150,14 @@ require([
       $('#profile_pic_education').data('o_left', o_left)
     else
       o_left = $('#profile_pic_education').data('o_left')
-
     $('#profile_pic_education').css('left', o_left+sideW)
+
+    if not $('#cover_image').data('o_left')
+      o_left = parseInt($('#cover_image').css('left'), 10)
+      $('#cover_image').data('o_left', o_left)
+    else
+      o_left = $('#cover_image').data('o_left')
+    $('#cover_image').css('left', o_left+sideW)
 
     $('#main').height($(document).height())
 
