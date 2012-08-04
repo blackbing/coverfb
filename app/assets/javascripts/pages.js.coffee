@@ -84,16 +84,15 @@ require([
 
   $('#background-image').draggable()
 
-  cropIt = ()->
-    coverSize =
-      w: 851
-      h: 315
+  cropIt = (coverSize, offsetDelta, name)->
+    ###
+    ###
     offset =
       left: parseInt($("#background-image").css("left"), 10)
       top: parseInt($("#background-image").css("top"), 10)
     cropInfo =
-      x: -(offset.left) + 139
-      y: -(offset.top) + 38
+      x: -(offset.left) + offsetDelta.x
+      y: -(offset.top) + offsetDelta.y
       w: coverSize.w
       h: coverSize.h
 
@@ -107,13 +106,32 @@ require([
 
     $('<a/>', {
       href: blobURL
-      download: 'cover.jpg'
+      download: "#{name}.jpg"
     }).append('<img src="'+blobURL+'" >')
-    .appendTo('#cover_image')
 
-  $('#cropBtn').on('click', ()->
 
-    cropIt()
+  $('#cropBtnProfile').on('click', ()->
+    coverSize =
+      w: 180
+      h: 180
+    delta =
+      x: parseInt( $('#profile_pic_education').css('left'), 10)
+      y: parseInt( $('#profile_pic_education').css('top'), 10)
+    $coverElement = cropIt(coverSize, delta, 'profile')
+
+    $coverElement.appendTo('#profile_pic_education')
+  )
+
+  $('#cropBtnCover').on('click', ()->
+    coverSize =
+      w: 851
+      h: 315
+    delta =
+      x: parseInt($('#cover_image').css('left'), 10)
+      y: parseInt($('#cover_image').css('top'), 10)
+    $coverElement = cropIt(coverSize, delta, 'cover')
+
+    $coverElement.appendTo('#cover_image')
   )
 
 

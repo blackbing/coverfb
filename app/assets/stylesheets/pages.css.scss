@@ -54,6 +54,12 @@ body{
   left: 174px;
   top: 250px;
   z-index: 100;
+  overflow: hidden;
+  a{
+    position: absolute;
+    left: -3px;
+    top: -3px;
+  }
 }
 
 #cover_image{
