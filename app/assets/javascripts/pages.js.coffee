@@ -2,7 +2,11 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 #
-$(window).load(->
+require([
+  'module'
+  'lib/crop'
+], (module, CropTool)->
+  console.log CropTool
 
   $('#cover_image').on('mousewheel DOMMouseScroll', (event)->
     originalEvent = event.originalEvent
@@ -68,7 +72,9 @@ $(window).load(->
       URL = window.URL or window.webkitURL
       localUrl = URL.createObjectURL(file)
       console.log localUrl
-      $('#background-image img').attr('src', localUrl)
+      $('#background-image img').load(->
+        #URL.revokeObjectURL(localUrl)
+      ).attr('src', localUrl)
 
 
 
@@ -77,6 +83,38 @@ $(window).load(->
 
 
   $('#background-image').draggable()
+
+  cropIt = ()->
+    coverSize =
+      w: 851
+      h: 315
+    offset =
+      left: parseInt($("#background-image").css("left"), 10)
+      top: parseInt($("#background-image").css("top"), 10)
+    cropInfo =
+      x: -(offset.left) + 139
+      y: -(offset.top) + 38
+      w: coverSize.w
+      h: coverSize.h
+
+    canvas = CropTool.crop($("#background-image img"), cropInfo)
+    resized = CropTool.resizeCanvas(canvas,
+      maxWidth: coverSize.w
+      maxHeight: coverSize.h
+    )
+    dataURL = CropTool.getDataURL(resized)
+    blobURL = CropTool.getBlobURL(dataURL)
+
+    $('<a/>', {
+      href: blobURL
+      download: 'cover.jpg'
+    }).append('<img src="'+blobURL+'" >')
+    .appendTo('#cover_image')
+
+  $('#cropBtn').on('click', ()->
+
+    cropIt()
+  )
 
 
 
