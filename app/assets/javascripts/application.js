@@ -20,3 +20,4 @@
 //
 //= require jquery.ui.draggable
 //= require jquery.ui.resizable
+//= require twitter/bootstrap

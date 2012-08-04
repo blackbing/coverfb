@@ -59,6 +59,20 @@ $(window).load(->
     .removeData('downY')
   )
 
+  $('#uploadBtn').on('change', (event)->
+
+    $target = event.target
+    console.log($target.files)
+    file = $target.files[0]
+    if file?
+      URL = window.URL or window.webkitURL
+      localUrl = URL.createObjectURL(file)
+      console.log localUrl
+      $('#background-image img').attr('src', localUrl)
+
+
+
+  )
 
 
 
