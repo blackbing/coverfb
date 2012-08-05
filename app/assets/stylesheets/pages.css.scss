@@ -57,12 +57,12 @@ body{
   overflow: hidden;
   a{
     position: absolute;
-    left: -3px;
+    left: 4px;
     top: -3px;
   }
   &:hover{
     @include box-shadow(rgba(white, 0.9) 0 0 25px, rgba(gray, 0.8) 0 0 3px 1px inset);
-    #cropBtnProfile{
+    #cropBtnProfile.step{
       display: block;
     }
   }
@@ -75,14 +75,19 @@ body{
   top: 38px;
   left: 151px;
   z-index: 99;
+  overflow: hidden;
+  a{
+    position: absolute;
+  }
   &:hover{
     @include box-shadow(rgba(white, 0.9) 0 0 25px, rgba(gray, 0.8) 0 0 3px 1px inset);
     outline: 1px solid #FFF;
-    #cropBtnCover{
+    #cropBtnCover.step{
       display: block;
     }
   }
   .select-photo{
+    display:none;
     margin: auto;
     left: 0;
     top: 0;
@@ -131,4 +136,8 @@ body{
 }
 #uploadBtn{
   display:none;
+}
+
+.hidden{
+  display: none;
 }

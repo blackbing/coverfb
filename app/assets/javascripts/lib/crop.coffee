@@ -185,7 +185,6 @@ define [
       c = cropInfo
       $target = $srcImg
       ratio = $target.prop("naturalWidth") / $target.prop('width')
-      console.log ratio
       sX = toDigits(c.x * ratio, 2)
       sY = toDigits(c.y * ratio, 2)
       sW = toDigits(c.w * ratio, 2)

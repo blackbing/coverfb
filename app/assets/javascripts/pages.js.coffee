@@ -6,7 +6,43 @@ require([
   'module'
   'lib/crop'
 ], (module, CropTool)->
-  console.log CropTool
+
+  checkStep = ()->
+    step = 0
+    if $('#cover_image img').length
+      step = 3
+      $('#profile_pic_education a').tooltip(
+        title: 'Congratulations! Just click it to download your profile image'
+        placement: 'bottom'
+      ).tooltip('show')
+      $('#cover_image a').tooltip(
+        title: 'Congratulations! Just click it to download your cover image'
+        placement: 'bottom'
+      ).tooltip('show')
+    else if $('#profile_pic_education img').length
+      $('#cropBtnCover').addClass('step').show().tooltip(
+        title: '3. Drag and wheel photo then click to capture cover image'
+        placement: 'right'
+      ).tooltip('show')
+      step = 2
+    else if $('#background-image img').length
+      $('.select-photo').fadeOut()
+      $('#cropBtnProfile').addClass('step').show().tooltip(
+        title: '2. Drag and wheel photo then click to capture profile image'
+        placement: 'right'
+      ).tooltip('show')
+
+      step = 1
+
+    if not step
+      $('.select-photo').fadeIn().tooltip(
+        title: '1. click to choose a photo'
+        placement: 'bottom'
+      ).tooltip('show')
+
+
+
+
 
   $('#cover_image').on('mousewheel DOMMouseScroll', (event)->
     originalEvent = event.originalEvent
@@ -25,7 +61,6 @@ require([
 
     return false
   ).on('mousedown', (event)->
-    console.log('mousedown')
     $target = $(event.target)
     $target
     .data('down', true)
@@ -56,7 +91,6 @@ require([
       return false
   ).on('mouseup', (event)->
     $target = $('#cover_image')
-    console.log('mosueup')
     $target
     .removeData('down')
     .removeData('downX')
@@ -70,18 +104,17 @@ require([
   $('#uploadBtn').on('change', (event)->
 
     $target = event.target
-    console.log($target.files)
     file = $target.files[0]
     if file?
       URL = window.URL or window.webkitURL
       localUrl = URL.createObjectURL(file)
-      console.log localUrl
       $('#background-image img').remove()
       $('<img>').load(->
         #URL.revokeObjectURL(localUrl)
       ).attr('src', localUrl)
       .appendTo('#background-image')
 
+    checkStep()
 
 
   )
@@ -127,6 +160,7 @@ require([
     $coverElement = cropIt(coverSize, delta, 'profile')
 
     $coverElement.appendTo('#profile_pic_education')
+    checkStep()
   )
 
   $('#cropBtnCover').on('click', ()->
@@ -140,6 +174,9 @@ require([
     $coverElement = cropIt(coverSize, delta, 'cover')
 
     $coverElement.appendTo('#cover_image')
+    $coverElement.find('img').load(->
+      checkStep()
+    )
   )
 
 
@@ -168,5 +205,7 @@ require([
     $('#main').height($(document).height())
 
   ).trigger('resize')
+
+  checkStep()
 )
 
