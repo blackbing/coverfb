@@ -63,6 +63,10 @@ require([
     .removeData('downY')
   )
 
+  $('#select_photo').on('click', ()->
+    $('#uploadBtn').trigger('click')
+  )
+
   $('#uploadBtn').on('change', (event)->
 
     $target = event.target
@@ -72,9 +76,11 @@ require([
       URL = window.URL or window.webkitURL
       localUrl = URL.createObjectURL(file)
       console.log localUrl
-      $('#background-image img').load(->
+      $('#background-image img').remove()
+      $('<img>').load(->
         #URL.revokeObjectURL(localUrl)
       ).attr('src', localUrl)
+      .appendTo('#background-image')
 
 
 
