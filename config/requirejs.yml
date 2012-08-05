@@ -1,0 +1,6 @@
+default_opts:
+  paths_require: &paths_require
+    'jquery': 'empty:'   # loaded in require.js bundle
+optimize: 'uglify'
+uglify:
+  'ascii_only': true
