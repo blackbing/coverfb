@@ -2,18 +2,30 @@
 <div id="background-image">
 </div>
 <div class="controller">
-  <input type="file" id="uploadBtn" accept="image/png,image/jpg">
+  <input type="file" id="uploadBtn" class="hidden" accept="image/png,image/jpg">
 </div>
 <div id="main">
   <div id="navbar">
     <div class="fb-like" style="z-index: 500;top:50px;left:10px;" data-href="http://coverfb.blackbing.net" data-send="true" data-layout="box_count" data-width="220" data-show-faces="true"></div>
   </div>
   <div id="profile_pic_education">
-    <span class="icon-camera camera-btn" id="cropBtnProfile"></span>
+    <div class="controller-group">
+      <a href="javascript:void(0)" class="icon-upload">select photo</a>
+      <a href="javascript:void(0)" class="icon-camera" id="cropBtnProfile">snapshot</a>
+      <a href="javascript:void(0)" class="icon-download-alt">download</a>
+      <a href="javascript:void(0)" class="myicon-clockwise">↷</a>
+      <a href="javascript:void(0)" class="myicon-anticolockwise">↶</a>
+    </div>
   </div>
   <div id="cover_image">
     <span class="btn btn-primary select-photo" id="select_photo">Select a photo</span>
-    <span class="icon-camera camera-btn" id="cropBtnCover"></span>
+    <div class="controller-group">
+      <a href="javascript:void(0)" class="icon-upload">select photo</a>
+      <a href="javascript:void(0)" class="icon-camera" id="cropBtnProfile">snapshot</a>
+      <a href="javascript:void(0)" class="icon-download-alt">download</a>
+      <a href="javascript:void(0)" class="myicon-clockwise">↷</a>
+      <a href="javascript:void(0)" class="myicon-anticolockwise">↶</a>
+    </div>
   </div>
   <div class="leftSide"></div>
   <div class="rightSide"></div>

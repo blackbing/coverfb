@@ -56,14 +56,14 @@ body{
   top: 250px;
   z-index: 100;
   overflow: hidden;
-  a{
+  .download{
     position: absolute;
     left: 4px;
     top: -3px;
   }
   &:hover{
     @include box-shadow(rgba(white, 0.9) 0 0 25px, rgba(gray, 0.8) 0 0 3px 1px inset);
-    #cropBtnProfile.step{
+    .controller-group{
       display: block;
     }
   }
@@ -78,18 +78,17 @@ body{
   left: 151px;
   z-index: 99;
   overflow: hidden;
-  a{
+  .download{
     position: absolute;
   }
   &:hover{
     @include box-shadow(rgba(white, 0.9) 0 0 25px, rgba(gray, 0.8) 0 0 3px 1px inset);
     outline: 1px solid #FFF;
-    #cropBtnCover.step{
+    .controller-group{
       display: block;
     }
   }
   .select-photo{
-    display:none;
     margin: auto;
     left: 0;
     top: 0;
@@ -102,20 +101,22 @@ body{
     font-size: 50px;
   }
 }
-.camera-btn{
-  border: 2px solid #FFF;
-  border-radius: 2px;
-  font-size: 20px;
-  width: 18px;
-  height: 16px;
-  background-color: #FFF;
-  position: absolute;
-  right: 5px;
-  top: 5px;
-  cursor: pointer;
-}
-#cropBtnCover, #cropBtnProfile{
+
+#profile_pic_education .controller-group,
+#cover_image .controller-group{
   display:none;
+}
+
+div.controller-group{
+  top: 5px;
+  float:left;
+  right: 5px;
+  position: absolute;
+  a{
+    text-indent: -9999px;
+    font-size: 20px;
+    cursor: pointer;
+  }
 }
 
 .leftSide{
@@ -136,10 +137,22 @@ body{
 .controller{
   position: absolute;
 }
-#uploadBtn{
-  display:none;
-}
 
 .hidden{
   display: none;
+}
+
+#uploadBtnControl{
+  top: 15px;
+}
+
+a.myicon-clockwise, a.myicon-anticolockwise{
+  font-family: "Arial Unicode MS","DejaVu Sans",sans-serif;
+  text-indent: 0;
+  font-size:16px;
+  color: black;
+  text-decoration: none;
+  text-align: center;
+  width: 18px;
+  height: 16px;
 }

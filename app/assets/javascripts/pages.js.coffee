@@ -229,6 +229,6 @@ require([
 
   ).trigger('resize')
 
-  checkStep()
+  #checkStep()
 )
 
