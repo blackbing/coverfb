@@ -70,12 +70,6 @@ require([
 
   )
 
-  coverOffset = $('#cover_image').offset()
-  limitBound =
-    minX: (coverOffset.left) - ($('#background-image').width() - $('#cover_image').width())
-    maxX: coverOffset.left
-    minY: (coverOffset.top) - ($('#background-image').height() - $('#cover_image').height())
-    maxY: coverOffset.top
   $('body').on('mousemove', (event)->
     $target = $('#cover_image')
     isMouseDown = $target.data('down')
@@ -89,6 +83,12 @@ require([
       deltaY = currentY - $target.data('downY')
 
       bgOffset = $('#background-image').offset()
+      coverOffset = $('#cover_image').offset()
+      limitBound =
+        minX: (coverOffset.left) - ($('#background-image').width() - $('#cover_image').width())
+        maxX: coverOffset.left
+        minY: (coverOffset.top) - ($('#background-image').height() - $('#cover_image').height())
+        maxY: coverOffset.top
 
 
       outBoundX = false
