@@ -70,23 +70,46 @@ require([
 
   )
 
+  coverOffset = $('#cover_image').offset()
+  limitBound =
+    minX: (coverOffset.left) - ($('#background-image').width() - $('#cover_image').width())
+    maxX: coverOffset.left
+    minY: (coverOffset.top) - ($('#background-image').height() - $('#cover_image').height())
+    maxY: coverOffset.top
   $('body').on('mousemove', (event)->
     $target = $('#cover_image')
     isMouseDown = $target.data('down')
     if(isMouseDown)
+
+
+
       currentX = event.clientX
       currentY = event.clientY
       deltaX = currentX - $target.data('downX')
       deltaY = currentY - $target.data('downY')
-      $('#background-image').css(
-        left: if deltaX>0 then '+='+deltaX else '-='+(-deltaX)
-        top: if deltaY>0 then '+='+deltaY else '-='+(-deltaY)
-      )
-      $target
-      .data('downX', currentX)
-      .data('downY', currentY)
+
+      bgOffset = $('#background-image').offset()
 
 
+      outBoundX = false
+      outBoundY = false
+      paddingX = -4
+      paddingY = 0
+      if (bgOffset.left + deltaX + paddingX - limitBound.minX)*(bgOffset.left + deltaX + paddingX- limitBound.maxX) >= 0
+        outBoundX = true
+      if (bgOffset.top + deltaY + paddingY - limitBound.minY)*(bgOffset.top + deltaY + paddingY - limitBound.maxY) >= 0
+        outBoundY = true
+
+      if not outBoundX
+        $('#background-image').css(
+          left: if deltaX>0 then '+='+deltaX else '-='+(-deltaX)
+        )
+        $target.data('downX', currentX)
+      if not outBoundY
+        $('#background-image').css(
+          top: if deltaY>0 then '+='+deltaY else '-='+(-deltaY)
+        )
+        $target.data('downY', currentY)
 
       return false
   ).on('mouseup', (event)->
