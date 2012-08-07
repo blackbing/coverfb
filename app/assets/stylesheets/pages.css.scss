@@ -104,18 +104,22 @@ body{
 
 #profile_pic_education .controller-group,
 #cover_image .controller-group{
-  display:none;
+  /*display:none;
+  */
 }
 
-div.controller-group{
+.controller-group{
   top: 5px;
   float:left;
   right: 5px;
   position: absolute;
-  a{
+  i{
     text-indent: -9999px;
-    font-size: 20px;
+    font-size: 26px;
     cursor: pointer;
+    background-color: #FFF;
+    width: 15px;
+    border:1px solid #FFF;
   }
 }
 
@@ -146,7 +150,7 @@ div.controller-group{
   top: 15px;
 }
 
-a.myicon-clockwise, a.myicon-anticolockwise{
+i.myicon-clockwise, i.myicon-anticolockwise{
   font-family: "Arial Unicode MS","DejaVu Sans",sans-serif;
   text-indent: 0;
   font-size:16px;

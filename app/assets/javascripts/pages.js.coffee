@@ -8,6 +8,7 @@ require([
 ], (module, CropTool)->
 
   checkStep = ()->
+    return false
     step = 0
     if $('#cover_image img').length
       step = 3
@@ -99,6 +100,10 @@ require([
         outBoundX = true
       if (bgOffset.top + deltaY + paddingY - limitBound.minY)*(bgOffset.top + deltaY + paddingY - limitBound.maxY) >= 0
         outBoundY = true
+
+      #FIXME: revise outBound
+      outBoundX = false
+      outBoundY = false
 
       if not outBoundX
         $('#background-image').css(
