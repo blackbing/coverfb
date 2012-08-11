@@ -1,6 +1,5 @@
 @import 'compass/utilities';
 @import 'compass/css3';
-@import "modules/jquery.Jcrop";
 
 // Place all the styles related to the pages controller here.
 // They will automatically be included in application.css.
@@ -101,6 +100,13 @@ body{
     height: 50px;
     font-size: 50px;
   }
+}
+
+#slider-vertical{
+  height: 270px;
+  position: absolute;
+  top: 32px;
+  right: 10px;
 }
 
 #profile_pic_education .controller-group,

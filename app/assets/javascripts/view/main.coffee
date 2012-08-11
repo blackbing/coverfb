@@ -85,12 +85,21 @@ define [
         .removeData('downY')
       )
 
+      $( "#slider-vertical" ).slider(
+        orientation: "vertical"
+        range: "min"
+        min: 0
+        max: 100
+        value: 60
+        slide: @slideHandler
+      )
+
     events:
       'click .controller-group .icon-remove': 'removeImage'
       'mousewheel #cover_image': 'wheelHandler'
       'DOMMouseScroll #cover_image': 'wheelHandler'
       'mousedown': 'downCover'
-      'click #select_photo': ()->
+      'click i.icon-upload,#select_photo': ()->
         $('#uploadBtn').trigger('click')
       'change #uploadBtn': 'changeUploadBtn'
       'click #cropBtnProfile': 'cropBtnProfile'
@@ -104,7 +113,7 @@ define [
       delta =
         x: parseInt($('#cover_image').css('left'), 10)
         y: parseInt($('#cover_image').css('top'), 10)
-      $coverElement = cropIt(coverSize, delta, 'cover')
+      $coverElement = @cropIt(coverSize, delta, 'cover')
 
       $coverElement.appendTo('#cover_image')
       $coverElement.find('img').load(->
@@ -119,7 +128,7 @@ define [
       delta =
         x: parseInt( $('#profile_pic_education').css('left'), 10)
         y: parseInt( $('#profile_pic_education').css('top'), 10)
-      $coverElement = cropIt(coverSize, delta, 'profile')
+      $coverElement = @cropIt(coverSize, delta, 'profile')
 
       $coverElement.appendTo('#profile_pic_education')
 
@@ -138,10 +147,15 @@ define [
         )
         $('<img>').load(->
           #URL.revokeObjectURL(localUrl)
-        ).attr('src', localUrl)
-        .appendTo('#background-image')
+          if($(@).prop('naturalWidth') < $('#cover_image').width())
+            alert('This photo width lower then 815, plase change a better one.')
+          else
+            $(@).appendTo('#background-image')
+            $('.select-photo').hide()
 
-      $('.select-photo').hide()
+        ).attr('src', localUrl)
+
+
 
 
     downCover: (event)->
@@ -150,6 +164,16 @@ define [
       .data('down', true)
       .data('downX', event.clientX)
       .data('downY', event.clientY)
+
+    slideHandler: (event, ui)->
+
+      naturalWidth = $('#background-image img').prop('naturalWidth')
+      minWidth = $('#cover_image').width()
+
+      w = (naturalWidth - minWidth) * ui.value/100
+      $('#background-image').css(
+        'width': minWidth + w
+      )
 
     wheelHandler: (event)->
       originalEvent = event.originalEvent
@@ -175,7 +199,7 @@ define [
       if $imgLink.length
         $imgLink.remove()
 
-    cropIt = (coverSize, offsetDelta, name)->
+    cropIt: (coverSize, offsetDelta, name)->
       ###
       ###
       offset =
@@ -199,8 +223,6 @@ define [
         href: blobURL
         download: "#{name}.jpg"
       }).append('<img src="'+blobURL+'" >')
-
-
 
 
   )
