@@ -160,19 +160,17 @@ define [
         $('#background-image img').remove()
         $('<img>').load(->
           #URL.revokeObjectURL(localUrl)
-          if($(@).prop('naturalWidth') < $('#cover_image').width())
-            alert('This photo width lower then 815, plase change a better one.')
-          else
-            $(@).appendTo('#background-image')
-            $('.select-photo').hide()
-
-
-            ###
-            naturalWidth = $(@).prop('naturalWidth')
-            minWidth = $('#cover_image').width()
-            sliderValue = Math.round(minWidth/naturalWidth * 100)
-            $('#slider-vertical').slider( "option", "value", sliderValue)
-            ###
+          #if($(@).prop('naturalWidth') < $('#cover_image').width())
+          #  alert('This photo width lower then 815, plase change a better one.')
+          #else
+          $(@).appendTo('#background-image')
+          $('.select-photo').hide()
+          ###
+          naturalWidth = $(@).prop('naturalWidth')
+          minWidth = $('#cover_image').width()
+          sliderValue = Math.round(minWidth/naturalWidth * 100)
+          $('#slider-vertical').slider( "option", "value", sliderValue)
+          ###
 
         ).attr('src', localUrl)
 
