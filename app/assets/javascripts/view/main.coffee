@@ -90,7 +90,7 @@ define [
         range: "min"
         min: 0
         max: 100
-        value: 60
+        value: 0
         slide: @slideHandler
       )
 
@@ -99,8 +99,7 @@ define [
       'mousewheel #cover_image': 'wheelHandler'
       'DOMMouseScroll #cover_image': 'wheelHandler'
       'mousedown': 'downCover'
-      'click i.icon-upload,#select_photo': ()->
-        $('#uploadBtn').trigger('click')
+      'click i.icon-upload,#select_photo': 'selectPhoto'
       'change #uploadBtn': 'changeUploadBtn'
       'click #cropBtnProfile': 'cropBtnProfile'
       'click #cropBtnCover': 'cropBtnCover'
@@ -133,18 +132,32 @@ define [
       $coverElement.appendTo('#profile_pic_education')
 
 
+    selectPhoto: (event)->
+      if $(event.target).closest('#profile_pic_education').length
+        $('#background-image').css(
+          left: $('#profile_pic_education').css('left')
+          top: $('#profile_pic_education').css('top')
+          width: $('#profile_pic_education').width()
+        )
+
+      else
+        $('#background-image').css(
+          left: $('#cover_image').css('left')
+          top: $('#cover_image').css('top')
+          width: $('#cover_image').width()
+        )
+
+      $('#uploadBtn').trigger('click')
+
     changeUploadBtn: (event)->
 
       $target = event.target
+
       file = $target.files[0]
       if file?
         URL = window.URL or window.webkitURL
         localUrl = URL.createObjectURL(file)
         $('#background-image img').remove()
-        $('#background-image').css(
-          left: $('#cover_image').css('left')
-          top: $('#cover_image').css('top')
-        )
         $('<img>').load(->
           #URL.revokeObjectURL(localUrl)
           if($(@).prop('naturalWidth') < $('#cover_image').width())
@@ -152,6 +165,14 @@ define [
           else
             $(@).appendTo('#background-image')
             $('.select-photo').hide()
+
+
+            ###
+            naturalWidth = $(@).prop('naturalWidth')
+            minWidth = $('#cover_image').width()
+            sliderValue = Math.round(minWidth/naturalWidth * 100)
+            $('#slider-vertical').slider( "option", "value", sliderValue)
+            ###
 
         ).attr('src', localUrl)
 
