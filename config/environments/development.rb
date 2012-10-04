@@ -34,4 +34,7 @@ CoverfbNet::Application.configure do
 
   # Expands the lines which load the assets
   config.assets.debug = true
+
+  config.assets.paths << Rails.root.join("spec", "javascripts")
+  config.assets.paths << Rails.root.join("vendor", "spec", "javascripts")
 end

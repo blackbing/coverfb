@@ -9,9 +9,10 @@ group :production do
 end
 group :development, :test do
   gem 'sqlite3'
+  gem 'jasmine', '~> 1.2.1'
 end
 
-gem 'requirejs-rails', '~> 0.9'
+gem 'requirejs-rails', '~> 0.9.0'
 
 # Gems used only for assets and not required
 # in production environments by default.

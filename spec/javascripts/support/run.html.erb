@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xml:lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta content="text/html;charset=UTF-8" http-equiv="Content-Type"/>
+  <title>Jasmine suite</title>
+  <link rel="shortcut icon" type="image/png" href="/__JASMINE_ROOT__/images/jasmine_favicon.png">
+
+  <% css_files.each do |css_file| %>
+    <link rel="stylesheet" href="<%= css_file %>" type="text/css" media="screen"/>
+  <% end %>
+
+  <% jasmine_files.each do |jasmine_file| %>
+  <script src="<%= jasmine_file %>" type="text/javascript"></script>
+  <% end %>
+
+  <script type="text/javascript">
+    var jsApiReporter;
+    var execJasmine;
+    (function() {
+      var jasmineEnv = jasmine.getEnv();
+
+      jsApiReporter = new jasmine.JsApiReporter();
+      var htmlReporter = new jasmine.HtmlReporter();
+
+      jasmineEnv.addReporter(jsApiReporter);
+      jasmineEnv.addReporter(htmlReporter);
+
+      jasmineEnv.specFilter = function(spec) {
+        return htmlReporter.specFilter(spec);
+      };
+
+      execJasmine = function() {
+        jasmineEnv.execute();
+      }
+
+    })();
+  </script>
+
+  <% @config.helpers.each do |js_file| %>
+  <script src="<%= js_file %>" type="text/javascript"></script>
+  <% end %>
+
+  <% extend RequirejsHelper %>
+  <%= requirejs_include_tag %>
+  <script>
+    require(<%= @config.spec_files.map { |s| s.sub(/\.js$/,'') }.to_json %>, function(){execJasmine()});
+  </script>
+
+</head>
+<body>
+<div id="jasmine_content"></div>
+</body>
+</html>
